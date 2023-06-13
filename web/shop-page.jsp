@@ -45,7 +45,7 @@
             <div class="humberger__menu__cart">
                 <ul>
                     <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                    <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    <li><a href="ViewCartController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                 </ul>
                 <div class="header__cart__price">item: <span>$150.00</span></div>
             </div>
@@ -65,7 +65,7 @@
             </div>
             <nav class="humberger__menu__nav mobile-menu">
                 <ul>
-                    <li class="active"><a href="ViewController">Home</a></li>
+                    <li class="active"><a href="ViewHomeController">Home</a></li>
                     <li><a href="ViewShopPageController">Shop</a></li>
                     <li><a href="#">Pages</a>
                         <ul class="header__menu__dropdown">
@@ -137,13 +137,13 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <div class="header__logo">
-                            <a href="ViewController"><img src="img/logo.png" alt=""></a>
+                            <a href="ViewHomeController"><img src="img/logo.png" alt=""></a>
                         </div>
                     </div>
                     <div class="col-lg-6">
                         <nav class="header__menu">
                             <ul>
-                                <li><a href="ViewController">Home</a></li>
+                                <li><a href="ViewHomeController">Home</a></li>
                                 <li class="active"><a href="ViewShopPageController">Shop</a></li>
                                 <li><a href="#">Pages</a>
                                     <ul class="header__menu__dropdown">
@@ -162,7 +162,7 @@
                         <div class="header__cart">
                             <ul>
                                 <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                                <li><a href="ViewCartController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                             </ul>
                             <div class="header__cart__price">item: <span>$150.00</span></div>
                         </div>
@@ -232,7 +232,7 @@
                         <div class="breadcrumb__text">
                             <h2>Organi Shop</h2>
                             <div class="breadcrumb__option">
-                                <a href="ViewController">Home</a>
+                                <a href="ViewHomeController">Home</a>
                                 <span>Shop</span>
                             </div>
                         </div>
@@ -294,11 +294,6 @@
                                             <div class="product__discount__item__pic set-bg"
                                                  data-setbg="img/product/discount/pd-1.jpg">
                                                 <div class="product__discount__percent">-20%</div>
-                                                <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                </ul>
                                             </div>
                                             <div class="product__discount__item__text">
                                                 <span>Dried Fruit</span>
@@ -330,11 +325,6 @@
                                             <div class="product__discount__item__pic set-bg"
                                                  data-setbg="img/product/discount/pd-3.jpg">
                                                 <div class="product__discount__percent">-20%</div>
-                                                <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                </ul>
                                             </div>
                                             <div class="product__discount__item__text">
                                                 <span>Dried Fruit</span>
@@ -348,11 +338,6 @@
                                             <div class="product__discount__item__pic set-bg"
                                                  data-setbg="img/product/discount/pd-4.jpg">
                                                 <div class="product__discount__percent">-20%</div>
-                                                <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                </ul>
                                             </div>
                                             <div class="product__discount__item__text">
                                                 <span>Dried Fruit</span>
@@ -366,11 +351,6 @@
                                             <div class="product__discount__item__pic set-bg"
                                                  data-setbg="img/product/discount/pd-5.jpg">
                                                 <div class="product__discount__percent">-20%</div>
-                                                <ul class="product__item__pic__hover">
-                                                    <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                </ul>
                                             </div>
                                             <div class="product__discount__item__text">
                                                 <span>Dried Fruit</span>
@@ -423,11 +403,6 @@
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
                                         <div class="product__item__pic set-bg" data-setbg="img/food/${o.thumbnail}">
-                                            <ul class="product__item__pic__hover">
-                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                            </ul>
                                         </div>
                                         <div class="product__item__text">
                                             <h6><a href="DetailProductController?product_id=${o.product_id}">${o.title}</a></h6>
@@ -456,7 +431,7 @@
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="footer__about">
                             <div class="footer__about__logo">
-                                <a href="ViewController"><img src="img/logo.png" alt=""></a>
+                                <a href="ViewHomeController"><img src="img/logo.png" alt=""></a>
                             </div>
                             <ul>
                                 <li>Address: 60-49 Road 11378 New York</li>

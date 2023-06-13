@@ -219,7 +219,7 @@ public class DAO {
         }
     }
 
-    public List<DTO> getlistProducts(String search) throws SQLException {
+    public List<DTO> searchProductByName(String search) throws SQLException {
         List<DTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;

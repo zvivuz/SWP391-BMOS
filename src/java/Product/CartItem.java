@@ -9,7 +9,8 @@ package Product;
  * @author HP
  */
 public class CartItem {
-     private DTO product;
+
+    private DTO product;
     private int amount;
 
     public CartItem() {
@@ -35,5 +36,5 @@ public class CartItem {
     public void setAmount(int amount) {
         this.amount = amount;
     }
-    
+
 }

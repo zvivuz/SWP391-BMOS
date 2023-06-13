@@ -45,7 +45,7 @@
         <div class="humberger__menu__cart">
             <ul>
                 <li><a href="shoping-cart.jsp"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                <li><a href="shoping-cart.jsp"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                <li><a href="ViewCartController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
         </div>
@@ -65,7 +65,7 @@
         </div>
         <nav class="humberger__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="ViewController">Home</a></li>
+                <li class="active"><a href="ViewHomeController">Home</a></li>
                 <li><a href="ViewShopPageController">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
@@ -137,13 +137,13 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="ViewController"><img src="img/Bird.svg" alt=""></a>
+                        <a href="ViewHomeController"><img src="img/Bird.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="ViewController">Home</a></li>
+                            <li class="active"><a href="ViewHomeController">Home</a></li>
                             <li><a href="ViewShopPageController">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
@@ -162,7 +162,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="shoping-cart.jsp"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="ViewCartController"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                         <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
@@ -287,17 +287,13 @@
                     </div>
                 </div>
             </div>
-            <form action="ViewController">
+            <form action="ViewHomeController">
             <div class="row featured__filter">
                 <c:forEach items="${Product}" var="o">
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="img/food/${o.thumbnail}">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="DetailProductController?product_id=${o.product_id}">${o.title}</a></h6>
@@ -312,24 +308,6 @@
     </section>
     <!-- Featured Section End -->
 
-    <!-- Banner Begin -->
-    <div class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="img/banner/banner-1.jpg" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="banner__pic">
-                        <img src="img/banner/banner-2.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Banner End -->
 
     <!-- Blog Section Begin -->
     <section class="from-blog spad">
@@ -371,7 +349,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="ViewController"><img src="img/logo.png" alt=""></a>
+                            <a href="ViewHomeController"><img src="img/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 60-49 Road 11378 New York</li>

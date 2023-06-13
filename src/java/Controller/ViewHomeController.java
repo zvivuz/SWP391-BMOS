@@ -2,73 +2,53 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
-import Product.Cart;
-import Product.CartItem;
+import Blog.BlogDAO;
+import Blog.BlogDTO;
 import Product.DAO;
 import Product.DTO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-
+import java.util.List;
 
 /**
  *
- * @author HP
+ * @author Thắng
  */
-@WebServlet(name = "BuyController", urlPatterns = {"/Buy"})
-public class BuyController extends HttpServlet {
-   private final DAO productDao = new DAO();
+@WebServlet(name="ViewHomeController", urlPatterns={"/ViewHomeController"})
+public class ViewHomeController extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         HttpSession session = request.getSession();
-
-        if (session.getAttribute("giohang") == null) {
-            Cart myCart = new Cart();
-
-            CartItem item = new CartItem();
-
-            String pid = request.getParameter("id");
-            DTO p = productDao.getProductById(pid);
-
-            item.setProduct(p);
-            item.setAmount(1);
-
-            myCart.getListCartItem().add(item);
-
-            session.setAttribute("giohang", myCart);
-        } else {
-            Cart myCart = (Cart) session.getAttribute("giohang");
-            String pid = request.getParameter("id");
-            if (myCart.containsKey(pid)) {
-                session.setAttribute("giohang", myCart);
-            } else {
-                CartItem item = new CartItem();
-
-                DTO p = productDao.getProductById(pid);
-                item.setProduct(p);
-                item.setAmount(1);
-                myCart.getListCartItem().add(item);
-                session.setAttribute("giohang", myCart);
-            }
-
+        try (PrintWriter out = response.getWriter()) {
+          DAO dao = new DAO();
+          BlogDAO  dao_blog = new BlogDAO();
+          List<DTO> list = dao.getProducts();
+          List<BlogDTO> list_blog = dao_blog.getBlog();
+          request.setAttribute("Product", list);
+          request.setAttribute("Blog", list_blog);
+          request.getRequestDispatcher("home.jsp").forward(request, response);
         }
-
-        response.sendRedirect("ShoppingController");
-    }
-    
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -76,13 +56,12 @@ public class BuyController extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
-    }
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -90,13 +69,12 @@ public class BuyController extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

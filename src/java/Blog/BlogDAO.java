@@ -47,18 +47,6 @@ public class BlogDAO {
         return list;
     }
 
-    public static void main(String[] args) {
-        BlogDAO dao = new BlogDAO();
-
-//    DTO s =  dao.getProductById("1");
-//        System.out.println(s);
-        List<BlogDTO> list = dao.getBlog();
-        for (BlogDTO productDTO : list) {
-            System.out.println(productDTO);
-        }
-        System.out.println(dao.getBlogtById("4"));
-    }
-
     public void delete_Blog(String blog_id) {
 
         try {
@@ -95,8 +83,6 @@ public class BlogDAO {
         return null;
     }
 
-   
-
     public void updateBlog(String blog_id, String thumbnail, String title, String date_update, String content,
             String status, String hashtag) {
         String sql = "UPDATE [tbl_Blog]\n"
@@ -110,15 +96,51 @@ public class BlogDAO {
         try {
             cn = (Connection) DBUtils.getConnection();
             stm = cn.prepareStatement(sql);
-                stm.setString(1, thumbnail);
-                stm.setString(2, title);
-                stm.setString(3, date_update);
-                stm.setString(4, content);
-                stm.setString(5, status);
-                stm.setString(6, hashtag);
-                stm.setString(7, blog_id);
+            stm.setString(1, thumbnail);
+            stm.setString(2, title);
+            stm.setString(3, date_update);
+            stm.setString(4, content);
+            stm.setString(5, status);
+            stm.setString(6, hashtag);
+            stm.setString(7, blog_id);
             stm.executeUpdate();
         } catch (Exception e) {
         }
+    }
+
+    public List<BlogDTO> getBlogByName(String txtSearchValue) {
+        List<BlogDTO> list = new ArrayList<>();
+        String sql = "Select * from tbl_Blog\n"
+                + "where title like ?";
+
+        try {
+            cn = new DBUtils().getConnection();
+            stm = cn.prepareStatement(sql);
+            stm.setString(1, "%" + txtSearchValue + "%");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                list.add(new BlogDTO(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getDate(4),
+                        rs.getString(5),
+                        rs.getBoolean(6),
+                        rs.getString(7)));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+      public static void main(String[] args) {
+        BlogDAO dao = new BlogDAO();
+
+//    DTO s =  dao.getProductById("1");
+//        System.out.println(s);
+        List<BlogDTO> list = dao.getBlogByName("c");
+        for (BlogDTO productDTO : list) {
+            System.out.println(productDTO);
+        }
+//        System.out.println(dao.getBlogtById("4"));
+           
     }
 }

@@ -4,54 +4,52 @@
  */
 package Controller;
 
-import Product.DAO;
-import Product.DTO;
-import User.UserDAO;
-import User.UserDTO;
+import Blog.BlogDAO;
+import Blog.BlogDTO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
-
 
 /**
  *
- * @author HP
+ * @author 09047
  */
-@WebServlet(name = "SearchController", urlPatterns = {"/search"})
-public class SearchController extends HttpServlet {
+@WebServlet(name = "SearchBlogController", urlPatterns = {"/SearchBlogController"})
+public class SearchBlogController extends HttpServlet {
 
-    private static final String ERROR="shop-page.jsp";
-   private static final String SUCCESS="shop-page.jsp";
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       String url = ERROR;
+        request.setCharacterEncoding("UTF-8");
+        String searchBlog = request.getParameter("searchBlog");
 
-        try {
-            String search=request.getParameter("searchProduct");
-            DAO dao= new DAO();
-            List<DTO> listProduct = dao.searchProductByName(search);
-            if(listProduct.size()>0){
-                request.setAttribute("list_product", listProduct);
-                url=SUCCESS;
-            }
-            
-            
-        } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        } finally {
-//                            respone.sendRedirect(url);
-            request.getRequestDispatcher(url).forward(request, response);
+        BlogDAO dao = new BlogDAO();
+        List<BlogDTO> listBlog = dao.getBlogByName(searchBlog);
+        if(listBlog.isEmpty()){
+            request.setAttribute("mess", "Blog no exist");
         }
-
+        
+        request.setAttribute("list_blog", listBlog);
+        request.setAttribute("searcrBlog", searchBlog);
+        
+        request.getRequestDispatcher("blog.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

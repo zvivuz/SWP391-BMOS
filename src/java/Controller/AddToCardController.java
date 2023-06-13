@@ -5,7 +5,9 @@
 package Controller;
 
 import Product.Cart;
-import jakarta.servlet.RequestDispatcher;
+import Product.CartItem;
+import Product.DAO;
+import Product.DTO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -15,35 +17,48 @@ import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-
 /**
  *
  * @author HP
  */
-@WebServlet(name = "Checkout", urlPatterns = {"/Checkout"})
-public class Checkout extends HttpServlet {
+@WebServlet(name = "AddToCardController", urlPatterns = {"/AddToCardController"})
+public class AddToCardController extends HttpServlet {
 
-    
+    private final DAO productDao = new DAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Cart myCart = new Cart();
-
-        if (session.getAttribute("giohang") != null) {
-
-            myCart = (Cart) session.getAttribute("giohang");
+            String pid = request.getParameter("id");
+        if (session.getAttribute("giohang") == null) {
+            Cart myCart = new Cart();
+            CartItem item = new CartItem();
+//            String pid = request.getParameter("id");
+            DTO p = productDao.getProductById(pid);
+            item.setProduct(p);
+            item.setAmount(1);
+            myCart.getListCartItem().add(item);
+            session.setAttribute("giohang", myCart);
+        } else {
+            Cart myCart = (Cart) session.getAttribute("giohang");
+//            String pid = request.getParameter("id");
+            if (myCart.containsKey(pid)) {
+                session.setAttribute("giohang", myCart);
+            } else {
+                CartItem item = new CartItem();
+                DTO p = productDao.getProductById(pid);
+                item.setProduct(p);
+                item.setAmount(1);
+                myCart.getListCartItem().add(item);
+                session.setAttribute("giohang", myCart);
+            }
 
         }
-                    
 
-        request.setAttribute("listItem", myCart.getListCartItem());
-        RequestDispatcher rd = getServletContext().
-                getRequestDispatcher("/viewcart.jsp");
-        rd.forward(request, response);
-
+        response.sendRedirect("DetailProductController?product_id=" + pid);
+//        request.getRequestDispatcher("DetailProductController").forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
