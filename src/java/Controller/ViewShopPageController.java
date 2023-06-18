@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Category.CategoryDAO;
+import Category.CategoryDTO;
 import Product.DAO;
 import Product.DTO;
 import java.io.IOException;
@@ -36,8 +38,13 @@ public class ViewShopPageController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             DAO dao = new DAO();
+            CategoryDAO dao_category = new CategoryDAO();
+
             List<DTO> list = dao.getProducts();
+            List<CategoryDTO> list_category = dao_category.readAllCategory();
+            
             request.setAttribute("list_product", list);
+            request.setAttribute("list_category", list_category);
             request.getRequestDispatcher("shop-page.jsp").forward(request, response);
         }
     }

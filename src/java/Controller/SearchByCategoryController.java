@@ -4,66 +4,51 @@
  */
 package Controller;
 
-import Cart.Cart;
-import Cart.CartItem;
+import Category.CategoryDAO;
+import Category.CategoryDTO;
 import Product.DAO;
 import Product.DTO;
+import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
-
+import java.util.List;
 
 /**
  *
- * @author HP
+ * @author 09047
  */
-@WebServlet(name = "BuyController", urlPatterns = {"/Buy"})
-public class BuyController extends HttpServlet {
-   private final DAO productDao = new DAO();
+@WebServlet(name = "SearchByCategoryController", urlPatterns = {"/SearchByCategoryController"})
+public class SearchByCategoryController extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         HttpSession session = request.getSession();
-
-        if (session.getAttribute("giohang") == null) {
-            Cart myCart = new Cart();
-
-            CartItem item = new CartItem();
-
-            String pid = request.getParameter("id");
-            DTO p = productDao.getProductById(pid);
-
-            item.setProduct(p);
-            item.setAmount(1);
-
-            myCart.getListCartItem().add(item);
-
-            session.setAttribute("giohang", myCart);
-        } else {
-            Cart myCart = (Cart) session.getAttribute("giohang");
-            String pid = request.getParameter("id");
-            if (myCart.containsKey(pid)) {
-                session.setAttribute("giohang", myCart);
-            } else {
-                CartItem item = new CartItem();
-
-                DTO p = productDao.getProductById(pid);
-                item.setProduct(p);
-                item.setAmount(1);
-                myCart.getListCartItem().add(item);
-                session.setAttribute("giohang", myCart);
-            }
-
-        }
-
-        response.sendRedirect("ShoppingController");
+        String search = request.getParameter("category_id");
+        
+        DAO dao = new DAO();
+        CategoryDAO dao_category = new CategoryDAO();
+        
+        List<DTO> list_product = dao.getProductByCategory(search);
+        List<CategoryDTO> list_category = dao_category.readAllCategory();
+        
+        request.setAttribute("list_product", list_product);
+        request.setAttribute("list_category", list_category);
+        
+        request.getRequestDispatcher("shop-page.jsp").forward(request, response);
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

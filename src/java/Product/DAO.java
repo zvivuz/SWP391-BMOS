@@ -54,6 +54,36 @@ public class DAO {
         }
         return list;
     }
+    
+     public List<DTO> getProductByCategory(String category_id) {
+        List<DTO> list = new ArrayList<>();
+
+        try {
+            cn = (Connection) DBUtils.getConnection();
+            String sql = "select * from tbl_Product where category_id = ?";
+            PreparedStatement stm = cn.prepareStatement(sql);
+            stm.setString(1, category_id);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                DTO p = new DTO(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9),
+                        rs.getDate(10),
+                        rs.getBoolean(11),
+                        rs.getInt(12));
+                list.add(p);
+            }
+
+        } catch (Exception e) {
+        }
+        return list;
+    }
 
     public void deleteProduct(String product_id) {
 

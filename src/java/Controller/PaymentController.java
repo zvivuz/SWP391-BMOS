@@ -4,8 +4,8 @@
  */
 package Controller;
 
-import Product.Cart;
-import Product.CartItem;
+import Cart.Cart;
+import Cart.CartItem;
 import Product.DAO;
 import Product.DTO;
 import jakarta.servlet.RequestDispatcher;
