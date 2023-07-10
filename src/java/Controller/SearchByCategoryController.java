@@ -4,6 +4,9 @@
  */
 package Controller;
 
+import Bird.BirdDAO;
+import Bird.BirdDTO;
+import Blog.BlogDTO;
 import Category.CategoryDAO;
 import Category.CategoryDTO;
 import Product.DAO;
@@ -37,15 +40,20 @@ public class SearchByCategoryController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String search = request.getParameter("category_id");
-        
+        String search_blog = request.getParameter("bird_id");
         DAO dao = new DAO();
         CategoryDAO dao_category = new CategoryDAO();
+        BirdDAO dao_bird = new BirdDAO();
+       
         
         List<DTO> list_product = dao.getProductByCategory(search);
         List<CategoryDTO> list_category = dao_category.readAllCategory();
+        List<BirdDTO> list_bird = dao_bird.getBird();
+        
         
         request.setAttribute("list_product", list_product);
         request.setAttribute("list_category", list_category);
+       
         
         request.getRequestDispatcher("shop-page.jsp").forward(request, response);
     }

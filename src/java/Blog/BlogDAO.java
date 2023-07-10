@@ -37,8 +37,9 @@ public class BlogDAO {
                         rs.getString(3),
                         rs.getDate(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
-                        rs.getString(7));
+                        rs.getString(6),
+                        rs.getBoolean(7),
+                        rs.getString(8));
                 list.add(p);
             }
             
@@ -49,14 +50,15 @@ public class BlogDAO {
     
     public static void main(String[] args) {
         BlogDAO dao = new BlogDAO();
-
+        List<BlogDTO> dto = dao.getBlog();
+        System.out.println(dto);
 //    DTO s =  dao.getProductById("1");
 //        System.out.println(s);
-        List<BlogDTO> list = dao.getBlogByName("ào");
-        for (BlogDTO productDTO : list) {
-            System.out.println(productDTO);
-        }
-        System.out.println(dao.getBlogtById("4"));
+//        List<BlogDTO> list = dao.getBlogByName("ào");
+//        for (BlogDTO productDTO : list) {
+//            System.out.println(productDTO);
+//        }
+//        System.out.println(dao.getBlogtById("4"));
     }
     
     public void delete_Blog(String blog_id) {
@@ -85,8 +87,9 @@ public class BlogDAO {
                         rs.getString(3),
                         rs.getDate(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
-                        rs.getString(7));
+                        rs.getString(6),
+                        rs.getBoolean(7),
+                        rs.getString(8));
                 return b;
             }
             
@@ -136,8 +139,9 @@ public class BlogDAO {
                         rs.getString(3),
                         rs.getDate(4),
                         rs.getString(5),
-                        rs.getBoolean(6),
-                        rs.getString(7)));
+                        rs.getString(6),
+                        rs.getBoolean(7),
+                        rs.getString(8)));
             }
         } catch (Exception e) {
         }

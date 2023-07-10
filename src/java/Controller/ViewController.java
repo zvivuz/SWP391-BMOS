@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Bird.BirdDAO;
+import Bird.BirdDTO;
 import Blog.BlogDAO;
 import Blog.BlogDTO;
 import Category.CategoryDAO;
@@ -17,6 +19,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -38,20 +41,28 @@ public class ViewController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try {
             DAO dao = new DAO();
             BlogDAO dao_blog = new BlogDAO();
             CategoryDAO dao_category = new CategoryDAO();
-
+            BirdDAO dao_bird = new BirdDAO();
+            
             List<DTO> list = dao.getProducts();
             List<BlogDTO> list_blog = dao_blog.getBlog();
             List<CategoryDTO> list_category = dao_category.readAllCategory();
+            List<BirdDTO> list_bird = dao_bird.getBird();
+                    
+            HttpSession session = request.getSession();
+            session.setAttribute("Product", list);
+            session.setAttribute("Blog", list_blog);
+            session.setAttribute("Category", list_category);
+            session.setAttribute("Bird", list_bird);
 
-            request.setAttribute("Product", list);
-            request.setAttribute("Blog", list_blog);
-            request.setAttribute("Category", list_category);
-
-            request.getRequestDispatcher("home.jsp").forward(request, response);
+          
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+              request.getRequestDispatcher("home.jsp").forward(request, response);
         }
     }
 

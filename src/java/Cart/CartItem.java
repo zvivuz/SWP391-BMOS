@@ -5,21 +5,26 @@
 package Cart;
 
 import Product.DTO;
+import meal.MealPackageDTO;
 
 /**
  *
  * @author HP
  */
 public class CartItem {
-     private DTO product;
-    private int amount;
+    private DTO product;
+    private int quantity;
+    private double price;
+   
 
     public CartItem() {
     }
 
-    public CartItem(DTO product, int amount) {
+    public CartItem(DTO product, int quantity, double price) {
         this.product = product;
-        this.amount = amount;
+        this.quantity = quantity;
+        this.price = price;
+      
     }
 
     public DTO getProduct() {
@@ -30,12 +35,23 @@ public class CartItem {
         this.product = product;
     }
 
-    public int getAmount() {
-        return amount;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    
+
     
 }

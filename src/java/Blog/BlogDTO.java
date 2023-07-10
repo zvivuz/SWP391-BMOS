@@ -16,21 +16,27 @@ public class BlogDTO {
     private String title;
     private Date date_update;
     private String content;
+    private String description;
     private  boolean status;
     private String hashtag;
 
     public BlogDTO() {
     }
 
-    public BlogDTO(int blog_id, String thumbnail, String title, Date date_update, String content, boolean status, String hashtag) {
+    public BlogDTO(int blog_id, String thumbnail, String title, Date date_update, String content, String description, boolean status, String hashtag) {
         this.blog_id = blog_id;
         this.thumbnail = thumbnail;
         this.title = title;
         this.date_update = date_update;
         this.content = content;
+        this.description = description;
         this.status = status;
         this.hashtag = hashtag;
     }
+
+  
+
+    
 
     public int getBlog_id() {
         return blog_id;
@@ -88,6 +94,16 @@ public class BlogDTO {
         this.hashtag = hashtag;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "BlogDTO{" + "blog_id=" + blog_id + ", thumbnail=" + thumbnail + ", title=" + title + ", date_update=" + date_update + ", content=" + content + ", status=" + status + ", hashtag=" + hashtag + '}';

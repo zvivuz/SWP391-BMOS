@@ -6,6 +6,9 @@ package Controller;
 
 import Blog.BlogDAO;
 import Blog.BlogDTO;
+import Category.CategoryDAO;
+import Category.CategoryDTO;
+import Product.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +16,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -33,10 +37,15 @@ public class ViewBlogController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+      response.setContentType("text/html;charset=UTF-8");
         BlogDAO dao = new BlogDAO();
+        CategoryDAO dao_category = new CategoryDAO();
+
         List<BlogDTO> list = dao.getBlog();
+        List<CategoryDTO> list_category = dao_category.readAllCategory();
+
         request.setAttribute("list_blog", list);
+        request.setAttribute("Category", list_category);
         request.getRequestDispatcher("blog.jsp").forward(request, response);
     }
 

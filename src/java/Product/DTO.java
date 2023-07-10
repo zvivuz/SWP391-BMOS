@@ -1,19 +1,21 @@
 package Product;
 
-
+import java.text.DecimalFormat;
 import java.util.Date;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author Thắng
  */
 public class DTO {
-     private String product_id;
+
+    DecimalFormat formatVND = new DecimalFormat("###,###,###");
+    private int product_id;
+    private String product_code;
     private String title;
     private int quantity;
     private int price;
@@ -29,11 +31,17 @@ public class DTO {
     public DTO() {
     }
 
-    public DTO(String product_id, String title, int quantity, int price, int discount_price, float weight, String thumbnail, String description, Date create_at, Date update_at, boolean status, int category_id) {
+    public DTO(String title) {
+        this.title = title;
+    }
+
+    public DTO(int product_id, String product_code, String title, int quantity, int price, int discount_price, float weight, String thumbnail, String description, Date create_at, Date update_at, boolean status, int category_id) {
         this.product_id = product_id;
+        this.product_code = product_code;
         this.title = title;
         this.quantity = quantity;
         this.price = price;
+//        this.formatVND = formatVND;
         this.discount_price = discount_price;
         this.weight = weight;
         this.thumbnail = thumbnail;
@@ -44,11 +52,19 @@ public class DTO {
         this.category_id = category_id;
     }
 
-    public String getProduct_id() {
+    public String getProduct_code() {
+        return product_code;
+    }
+
+    public void setProduct_code(String product_code) {
+        this.product_code = product_code;
+    }
+
+    public int getProduct_id() {
         return product_id;
     }
 
-    public void setProduct_id(String product_id) {
+    public void setProduct_id(int product_id) {
         this.product_id = product_id;
     }
 
@@ -72,12 +88,20 @@ public class DTO {
         return price;
     }
 
+    public String getFormattedPrice() {
+        return formatVND.format(price);
+    }
+
     public void setPrice(int price) {
         this.price = price;
     }
 
     public int getDiscount_price() {
         return discount_price;
+    }
+
+    public String getFormattedDiscountPrice() {
+        return formatVND.format(discount_price);
     }
 
     public void setDiscount_price(int discount_price) {
@@ -142,8 +166,7 @@ public class DTO {
 
     @Override
     public String toString() {
-        return "DTO{" + "product_id=" + product_id + ", title=" + title + ", quantity=" + quantity + ", price=" + price + ", discount_price=" + discount_price + ", weight=" + weight + ", thumbnail=" + thumbnail + ", description=" + description + ", create_at=" + create_at + ", update_at=" + update_at + ", status=" + status + ", category_id=" + category_id + '}';
+        return "DTO{" + "product_id=" + product_id + ", title=" + title + ", quantity=" + quantity + ", price=" + getFormattedPrice() + ", discount_price=" + getFormattedDiscountPrice() + ", weight=" + weight + ", thumbnail=" + thumbnail + ", description=" + description + ", create_at=" + create_at + ", update_at=" + update_at + ", status=" + status + ", category_id=" + category_id + '}';
     }
-    
-    
+
 }

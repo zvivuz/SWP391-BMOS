@@ -6,6 +6,8 @@ package Controller;
 
 import Blog.BlogDAO;
 import Blog.BlogDTO;
+import Category.CategoryDAO;
+import Category.CategoryDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,6 +15,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  *
@@ -35,9 +38,15 @@ public class DetailBlogController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             String blog_id = request.getParameter("blog_id");
-            BlogDAO dao= new BlogDAO();
+            BlogDAO dao = new BlogDAO();
+            CategoryDAO dao_category = new CategoryDAO();
+
             BlogDTO blog_detail = dao.getBlogtById(blog_id);
+            List<CategoryDTO> list_category = dao_category.readAllCategory();
+
+            request.setAttribute("Category", list_category);
             request.setAttribute("blog_detail", blog_detail);
+
             request.getRequestDispatcher("blog-detail.jsp").forward(request, response);
         }
     }

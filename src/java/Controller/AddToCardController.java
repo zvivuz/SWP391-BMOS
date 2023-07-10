@@ -4,6 +4,10 @@
  */
 package Controller;
 
+import Cart.Cart;
+import Cart.CartItem;
+import Product.DAO;
+import Product.DTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,12 +15,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author 09047
+ * @author Asus
  */
 @WebServlet(name = "AddToCardController", urlPatterns = {"/AddToCardController"})
+
 public class AddToCardController extends HttpServlet {
 
     /**
@@ -31,18 +38,7 @@ public class AddToCardController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet AddToCardController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet AddToCardController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -71,7 +67,35 @@ public class AddToCardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession(true);
+        Cart cart = null;
+        Object o = session.getAttribute("cart");
+        
+        if(o!=null){
+            cart = (Cart)o;
+        }else{
+            cart = new Cart();
+        }
+        String tnum = request.getParameter("num");
+        String tid = request.getParameter("product_id");
+        int num, id;
+        try {
+            num = Integer.parseInt(tnum);
+            id = Integer.parseInt(tid);
+            
+            DAO dao = new DAO();
+            DTO p = dao.getProductById(id);
+            double price = p.getPrice();
+            CartItem t = new CartItem(p, num, price);
+            cart.addItem(t);
+        } catch (NumberFormatException e) {
+            num = 1;
+        }
+        
+        List<CartItem> list = cart.getListCartItem();
+        session.setAttribute("cart", cart);
+        session.setAttribute("size", list.size());
+        request.getRequestDispatcher("DetailProductController?product_id=" + tid).forward(request, response);
     }
 
     /**

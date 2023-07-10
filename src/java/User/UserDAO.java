@@ -39,13 +39,42 @@ public class UserDAO {
                             rs.getString(6),
                             rs.getString(7),
                             rs.getString(8),
-                            rs.getInt(9));
+                            rs.getString(9));
                 }
             }
 
         } catch (Exception e) {
         }
         return null;
+    }
+     public boolean updateProfile(UserDTO updateUser) throws SQLException {
+        boolean checkUpdate = false;
+        Connection cn = null;
+        PreparedStatement stm = null;
+        try {
+            cn = DBUtils.getConnection();
+            if (cn != null) {
+                stm = cn.prepareStatement("UPDATE tbl_User SET  password = ?, fullname = ?, email = ?, phone_number = ?, address = ?  where user_id= ? ");      
+                stm.setString(1, updateUser.getPassword());
+                stm.setString(2, updateUser.getFullname());
+                stm.setString(3, updateUser.getEmail());
+                stm.setString(4, updateUser.getPhone());
+                stm.setString(5, updateUser.getAddress());
+                stm.setInt(6, updateUser.getUserID());
+                checkUpdate = stm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (cn != null) {
+                cn.close();
+            }
+        }
+        return checkUpdate;
+
     }
 
     public static void main(String[] args) throws SQLException {

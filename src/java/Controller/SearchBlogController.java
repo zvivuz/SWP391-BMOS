@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import Bird.BirdDAO;
 import Blog.BlogDAO;
 import Blog.BlogDTO;
 import java.io.IOException;
@@ -35,6 +36,11 @@ public class SearchBlogController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String searchBlog = request.getParameter("searchBlog");
+
+//        String search_Blog = request.getParameter("bird_id");
+//        BirdDAO dao_blog = new BirdDAO();
+//        List<BlogDTO> list_blog = dao_blog.getBlogByBird(search_Blog);
+//        request.setAttribute("list_blog", list_blog);
 
         BlogDAO dao = new BlogDAO();
         List<BlogDTO> listBlog = dao.getBlogByName(searchBlog);
