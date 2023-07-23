@@ -3,7 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT/Kì%205/SWP391/Project/BMOS_template/src/java/Controller/DispatchServlet.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/web/order-admin-page.jsp</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/ViewProductAdminPage.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Order/OrderDTO.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/web/user-admin-page.jsp</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/DispatchServlet.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/web/admin-page.jsp</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/ConfirmController.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/web/oncancel.html</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/User/UserDAO.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/web/blog-admin-page.jsp</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/UpdateProfileController.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/CreateBlogController.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/ViewOrderAdminPageController.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Order/OrderDAO.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/UpdateUserController.java</file>
+            <file>file:/D:/Tài%20Liệu%20CN5/SWP391/BMOS_template_v4/src/java/Controller/UpdateBlogController.java</file>
         </group>
     </open-files>
 </project-private>

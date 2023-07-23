@@ -6,6 +6,7 @@ package Cart;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
+import meal.MealPackageDTO;
 
 /**
  *
@@ -30,16 +31,35 @@ public class Cart {
         this.listCartItem = listCartItem;
     }
 
-    public boolean containsKey(String pid) {
-        boolean check = false;
-        for (CartItem cartItem : listCartItem) {
-            if (cartItem.getProduct().getProduct_id().equals(pid)) {
-                cartItem.setAmount(cartItem.getAmount() + 1);
-                check = true;
-            }
+    public CartItem getItemById(int id){
+        for (CartItem i : listCartItem) {
+            if(i.getProduct().getProduct_id()==id)
+                return i;
         }
-        return check;
+        return null;
+    } 
+    public int getQuantityById(int id){
+        return getItemById(id).getQuantity();
     }
-
-    
+    public void addItem(CartItem t){
+        if(getItemById(t.getProduct().getProduct_id())!=null){
+            CartItem i = getItemById(t.getProduct().getProduct_id());
+            i.setQuantity(i.getQuantity()+t.getQuantity());
+        }else{
+            listCartItem.add(t);
+        }
+    }
+    public void removeItem(int id){
+        if(getItemById(id)!=null){
+            listCartItem.remove(getItemById(id));
+        }
+    }
+    public double getTotalMoney(){
+        double t = 0;
+        for (CartItem i : listCartItem) {
+            t+=i.getQuantity()*i.getPrice();
+               }
+        return t;
+    }
+   
 }
