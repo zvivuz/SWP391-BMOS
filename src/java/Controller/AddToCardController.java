@@ -23,7 +23,6 @@ import java.util.List;
  * @author Asus
  */
 @WebServlet(name = "AddToCardController", urlPatterns = {"/AddToCardController"})
-
 public class AddToCardController extends HttpServlet {
 
     /**

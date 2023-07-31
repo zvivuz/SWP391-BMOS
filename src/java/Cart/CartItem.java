@@ -12,6 +12,7 @@ import meal.MealPackageDTO;
  * @author HP
  */
 public class CartItem {
+    private MealPackageDTO mealPackage;
     private DTO product;
     private int quantity;
     private double price;
@@ -26,6 +27,22 @@ public class CartItem {
         this.price = price;
       
     }
+    
+    public CartItem(MealPackageDTO mealPackage, int quantity, double price) {
+        this.mealPackage = mealPackage;
+        this.quantity = quantity;
+        this.price = price;
+      
+    }
+
+    public MealPackageDTO getMealPackage() {
+        return mealPackage;
+    }
+
+    public void setMealPackage(MealPackageDTO mealPackage) {
+        this.mealPackage = mealPackage;
+    }
+    
 
     public DTO getProduct() {
         return product;

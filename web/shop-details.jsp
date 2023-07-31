@@ -247,7 +247,7 @@
                             
                             <div class="product__details__price">${detail.getFormattedPrice()} VND</div>
 <!--                            <p>${detail.description}</p>-->
-                            <form action="AddToCardController" method="POST">
+                             <form action="AddToCardController" method="POST">
                                 <div class="product__details__quantity">
                                     <div class="quantity">
                                         <div class="pro-qty">
