@@ -14,17 +14,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import meal.MealDAO;
 import meal.MealPackageDAO;
 import meal.MealPackageDTO;
-
 
 @WebServlet(name = "CreateMealController", urlPatterns = {"/CreateMealController"})
 public class CreateMealController extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
@@ -43,14 +46,44 @@ public class CreateMealController extends HttpServlet {
             String bird_id = request.getParameter("bird_id");
             String lifecycle_id = request.getParameter("lifecycle_id");
             String img = request.getParameter("img");
-            MealPackageDAO dao = new MealPackageDAO();
-            dao.createMealPackage(meal_code, quantity, price, discount_price, thumbnail,
-                    bird_id, title_mealpackage, description, recipe, create_at, update_at,
-                    status, lifecycle_id, img);
+            String list_pro = request.getParameter("list_pro");
 
-            HttpSession session = request.getSession();
-            List<MealPackageDTO> list = dao.getMealPackages();
-            session.setAttribute("MealPackage", list);
+            if (list_pro != null) {
+                MealPackageDAO dao = new MealPackageDAO();
+                MealDAO mealDao = new MealDAO();
+
+                dao.createMealPackage(meal_code, quantity, price, discount_price, thumbnail,
+                        bird_id, title_mealpackage, description, recipe, create_at, update_at,
+                        status, lifecycle_id, img);
+
+                String latestMealPackageId = dao.getLastIdMealPackage();
+
+                // Initialize a map to store the product IDs and their corresponding quantities
+                Map<String, Integer> productQuantityMap = new HashMap<>();
+
+                // Split the comma-separated list and process each item to extract ID and quantity
+                Arrays.stream(list_pro.split(","))
+                        .map(item -> item.split("-"))
+                        .forEach(itemArray -> {
+                            if (itemArray.length == 2) {
+                                String productId = itemArray[0];
+                                int quantityProduct = Integer.parseInt(itemArray[1]);
+                                // Store the ID and quantity in the map
+                                productQuantityMap.put(productId, quantityProduct);
+                            }
+                        });
+
+                for (Map.Entry<String, Integer> entry : productQuantityMap.entrySet()) {
+                    String productId = entry.getKey();
+                    int quantityProduct = entry.getValue();
+                   boolean rs = mealDao.createMeal(quantityProduct+"", latestMealPackageId, productId);
+                }
+
+                HttpSession session = request.getSession();
+                List<MealPackageDTO> list = dao.getMealPackages();
+                session.setAttribute("MealPackage", list);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

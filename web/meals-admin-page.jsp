@@ -58,6 +58,31 @@
         <link href="admin/css/lib/helper.css" rel="stylesheet" />
         <link href="admin/css/style.css" rel="stylesheet" />
         <link rel="stylesheet" type="text/css" href="styles.css">
+        <style>
+            /* Style for the popup overlay */
+            .popup-overlay {
+                z-index: 9999;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                display: none;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Style for the popup container */
+            .popup {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            }
+
+
+        </style>
     </head>
 
     <body>
@@ -402,19 +427,19 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                      
+
                                         <th>Meal Code</th>
                                         <th>Title</th>
 
-<!--                                        <th>Quantity</th>-->
-<!--                                        <th>Price</th>-->
-<!--                                        <th>discount_price</th>       -->
+                                        <!--                                        <th>Quantity</th>-->
+                                        <!--                                        <th>Price</th>-->
+                                        <!--                                        <th>discount_price</th>       -->
                                         <th>Thumbnail</th>
                                         <!--                                            <th>description</th>-->
                                         <!--                                            <th>create_at</th>
                                                                                     <th>update_at</th>
                                                                                     <th>status</th>-->
-                                     
+
 
                                         <th style="text-align: center;">Actions</th>
                                     </tr>
@@ -422,17 +447,17 @@
                                 <tbody>
                                     <c:forEach items="${MealPackage}" var="x">
                                         <tr>
-                                         <td style="text-align: left;">${x.meal_code}</td>
-                                         <td style="text-align: left;">${x.title}</td>
-<!--                                            <td style="text-align: left;">${x.quantity}</td>-->
-<!--                                            <td style="text-align: left;">${x.price}</td>
-                                            <td style="text-align: left;">${x.discount_price}</td>-->
+                                            <td style="text-align: left;">${x.meal_code}</td>
+                                            <td style="text-align: left;">${x.title}</td>
+   <!--                                            <td style="text-align: left;">${x.quantity}</td>-->
+   <!--                                            <td style="text-align: left;">${x.price}</td>
+                                               <td style="text-align: left;">${x.discount_price}</td>-->
                                             <td style="text-align: left;"><img style="width: 250px;" src="${x.thumbnail}"></td>
 <!--                                                <td style="text-align: left;">${x.description}</td>-->
 <!--                                                <td style="text-align: left;">${x.create_at}</td>
                                             <td style="text-align: left;">${x.update_at}</td>
                                             <td style="text-align: left;">${x.status}</td>-->
-                                          
+
                                             <td class="text-center">
 
 
@@ -443,7 +468,7 @@
                                                     </c:url>
                                                     <a href="${Delete}" class="btn btn-danger btn-sm" title="Delete"><i class="fa fa-trash"></i></a>
                                                 </form>
-                                                 <a href="#" class="btn btn-primary btn-sm" title="Update" 
+                                                <a href="#" class="btn btn-primary btn-sm" title="Update" 
                                                    data-toggle="modal" data-target="#createProductModal1"
                                                    onclick="navigateToUpdateController(event, '${x.meal_package_id}')">
                                                     <i class="fa fa-pencil"></i>
@@ -489,7 +514,7 @@
                         <!-- Modal Create -->
                         <div class="modal fade" id="createProductModal" tabindex="-1" role="dialog" aria-labelledby="createProductModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
-                                <div class="modal-content">
+                                <div class="modal-content" style="margin-top: 33rem;">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="createProductModalLabel">Create Meal Package</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -505,25 +530,25 @@
                                                 <input type="text" class="form-control" id="mealCode" placeholder="Enter meal_code" name="meal_code">
                                             </div>
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealTitle">Title Mealpackage</label>
+                                                <label for="mealTitle">Title Meal Package</label>
                                                 <input type="text" class="form-control" id="mealTitle" placeholder="Enter title_mealpackage" name="title_mealpackage">
                                             </div>
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealQuantity">Quantity</label>
                                                 <input type="text" class="form-control" id="mealQuantity" placeholder="Enter quantity" name="quantity">
-                                            </div>-->
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                            </div>
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealPrice">Price </label>
                                                 <input type="text" class="form-control" id="mealPrice" placeholder="Enter  price" name="price">
-                                            </div>-->
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                            </div>
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealDiscount">discount_price</label>
                                                 <input type="text" class="form-control" id="mealDiscount" placeholder="Enter Discount Price" name="discount_price">
-                                            </div>-->
-                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="mealThumbnail">Thumbnail</label>
-                                                <input type="text" class="form-control" id="mealThumbnail" placeholder="Enter Thumbnail" name="thumbnail">
                                             </div>
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="mealThumbnail">Thumbnail</label>
+                                                                                            <input type="text" class="form-control" id="mealThumbnail" placeholder="Enter Thumbnail" name="thumbnail">
+                                                                                        </div>-->
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
                                                 <label for="myTextArea">Description</label>
                                                 <input type="text" class="form-control" id="myTextArea" placeholder="Enter Desc" name="description">
@@ -539,8 +564,8 @@
                                                 <label for="mealRecipe">Recipe</label>
                                                 <input type="text" class="form-control" id="mealRecipe" placeholder="Enter recipe" name="recipe">
                                             </div>
-                                            
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
                                                 <label for="mealCreate">create_at</label>
                                                 <input type="date" class="form-control" id="mealCreate" placeholder="Enter create_at" name="create_at">
                                             </div>
@@ -551,19 +576,29 @@
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealStatus">Status</label>
                                                 <input type="text" class="form-control" id="mealStatus" placeholder="Enter Status" name="status">
-                                            </div>-->
+                                            </div>
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="mealBird_id">bird_id</label>
-                                                <input type="text" class="form-control" id="mealBird_id" placeholder="Enter BirdID" name="bird_id">
+                                                <label for="mealImg">Product</label></br>
+                                                <div id="selectedProducts"></div>
+                                                <!-- Hidden input to store selected products as a comma-separated list -->
+                                                <input type="hidden" id="selectedProductsInput" name="list_pro">
                                             </div>
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealLifecycle_id">lifecycle_id</label>
-                                                <input type="text" class="form-control" id="mealLifecycle_id" placeholder="Enter lifecycle_id" name="lifecycle_id">
-                                            </div>-->
-                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealImg">Image</label>
-                                                <input type="text" class="form-control" id="mealImg" placeholder="Enter img" name="img">
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                <label for="mealImg">Add Product</label></br>
+                                                <button type="button" id="openPopup" class="btn btn-secondary">Add Product</button>
                                             </div>
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="mealBird_id">bird_id</label>
+                                                                                            <input type="text" class="form-control" id="mealBird_id" placeholder="Enter BirdID" name="bird_id">
+                                                                                        </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                                                                            <label for="mealLifecycle_id">lifecycle_id</label>
+                                                                                            <input type="text" class="form-control" id="mealLifecycle_id" placeholder="Enter lifecycle_id" name="lifecycle_id">
+                                                                                        </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                                                                            <label for="mealImg">Image</label>
+                                                                                            <input type="text" class="form-control" id="mealImg" placeholder="Enter img" name="img">
+                                                                                        </div>-->
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 <button type="submit" class="btn btn-primary" name="action" value="Create Meal">Create Meal</button>
@@ -573,6 +608,25 @@
                                     </div>
 
                                 </div>
+                            </div>
+                        </div>
+                        <!-- Product Popup -->
+                        <div class="popup-overlay" id="popupOverlay">
+                            <div class="popup">
+                                <h2>Product Cart</h2>
+                                <form id="productForm">
+                                    <%-- Use JSP to loop through the productList and populate the checkboxes --%>
+                                    <c:forEach var="dto" items="${sessionScope.list_product}">
+                                        <label>
+                                            <input type="checkbox" name="productCheckbox" value="${dto.product_id}">
+                                            ${dto.title}
+                                            <input type="number" name="productQuantity" value="1" min="1" max="100">
+
+                                        </label><br>
+                                    </c:forEach>
+                                </form>
+
+                                <button id="closePopup">Close</button>
                             </div>
                         </div>
                         <!--   Model Update    -->
@@ -586,29 +640,29 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-<!--                                        Your form content goes here                                      -->
+                                        <!--                                        Your form content goes here                                      -->
                                         <form action="DispatchServlet" method="POST">
                                             <input type="hidden" name="meal_package_id" value="${mid.meal_package_id}";
                                                    <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                            <label for="mealMeal_code">Meal Code</label>
-                                            <input type="text" class="form-control" id="mealMeal_code" placeholder="Enter meal_code" name="meal_code" value="${mid.meal_code}">
+                                                <label for="mealMeal_code">Meal Code</label>
+                                                <input type="text" class="form-control" id="mealMeal_code" placeholder="Enter meal_code" name="meal_code" value="${mid.meal_code}">
                                             </div>
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealTitle">Title</label>
                                                 <input type="text" class="form-control" id="mealTitle" placeholder="Enter Title" name="title" value="${mid.title}">
                                             </div>
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealQuantity">Quantity</label>
-                                                <input type="text" class="form-control" id="mealQuantity" placeholder="Enter Quantity" name="quantity" value="${mid.quantity}">
-                                            </div>-->
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealPrice">Price</label>
-                                                <input type="text" class="form-control" id="mealPrice" placeholder="Enter Price" name="price" value="${mid.price}">
-                                            </div>-->
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
-                                                <label for="mealDiscountPrice">Discount Price</label>
-                                                <input type="text" class="form-control" id="mealDiscountPrice" placeholder="Enter Discount Price" name="discount_price" value="${mid.discount_price}">
-                                            </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                                                                            <label for="mealQuantity">Quantity</label>
+                                                                                            <input type="text" class="form-control" id="mealQuantity" placeholder="Enter Quantity" name="quantity" value="${mid.quantity}">
+                                                                                        </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                                                                            <label for="mealPrice">Price</label>
+                                                                                            <input type="text" class="form-control" id="mealPrice" placeholder="Enter Price" name="price" value="${mid.price}">
+                                                                                        </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
+                                                                                            <label for="mealDiscountPrice">Discount Price</label>
+                                                                                            <input type="text" class="form-control" id="mealDiscountPrice" placeholder="Enter Discount Price" name="discount_price" value="${mid.discount_price}">
+                                                                                        </div>-->
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;">
                                                 <label for="mealThumbnail">Thumbnail</label>
                                                 <input type="text" class="form-control" id="mealThumbnail" placeholder="Enter Thumbnail" name="thumbnail" value="${mid.thumbnail}">
@@ -628,32 +682,36 @@
                                                 <label for="mealRecipe">Recipe</label>
                                                 <input type="text" class="form-control" id="mealRecipe" placeholder="Enter Recipe" name="recipe" value="${mid.recipe}">
                                             </div>
-                                             <script>
-                                                    tinymce.init({
-                                                        selector: '#mealRecipe'
+                                            <script>
+                                                tinymce.init({
+                                                    selector: '#mealRecipe'
 
-                                                    });
-                                                </script>
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="productCreate_at">Create_at</label>
-                                                <input type="text" class="form-control" id="productCreate_at" placeholder="Enter Date Create" name="create_at" value="${mid.create_at}">
-                                            </div>
-                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="mealUpdate_at">Update_at</label>
-                                                <input type="text" class="form-control" id="mealUpdate_at" placeholder="Enter Date Update" name="update_at" value="${mid.update_at}">
-                                            </div>
-                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="mealStatus">Status</label>
-                                                <input type="text"  class="form-control" id="mealStatus" placeholder="Enter Status" name="status" value="${mid.status}">
-                                            </div>-->
+                                                });
+                                            </script>
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="productCreate_at">Create_at</label>
+                                                                                            <input type="text" class="form-control" id="productCreate_at" placeholder="Enter Date Create" name="create_at" value="${mid.create_at}">
+                                                                                        </div>
+                                                                                        <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="mealUpdate_at">Update_at</label>
+                                                                                            <input type="text" class="form-control" id="mealUpdate_at" placeholder="Enter Date Update" name="update_at" value="${mid.update_at}">
+                                                                                        </div>
+                                                                                        <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="mealStatus">Status</label>
+                                                                                            <input type="text"  class="form-control" id="mealStatus" placeholder="Enter Status" name="status" value="${mid.status}">
+                                                                                        </div>-->
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
                                                 <label for="mealBird_id">Bird_id</label>
                                                 <input type="text" class="form-control" id="mealBird_id" placeholder="Enter Bird_id" name="bird_id" value="${mid.bird_id}">
                                             </div>
-<!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
-                                                <label for="mealLifecycle_id">Lifecycle_id</label>
-                                                <input type="text" class="form-control" id="mealLifecycle_id" placeholder="Enter Lifecycle_id" name="lifecycle_id" value="${mid.lifecycle_id}">
-                                            </div>-->
+                                            <!--                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                                                            <label for="mealLifecycle_id">Lifecycle_id</label>
+                                                                                            <input type="text" class="form-control" id="mealLifecycle_id" placeholder="Enter Lifecycle_id" name="lifecycle_id" value="${mid.lifecycle_id}">
+                                                                                        </div>-->
+                                            <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
+                                                <label for="mealImg">Image</label>
+                                                <input type="text" class="form-control" id="mealImg" placeholder="Enter Img" name="img" value="${mid.img}">
+                                            </div>
                                             <div class="form-group" style="font-weight: bold; text-align: left; display: block;"> 
                                                 <label for="mealImg">Image</label>
                                                 <input type="text" class="form-control" id="mealImg" placeholder="Enter Img" name="img" value="${mid.img}">
@@ -682,6 +740,30 @@
     </div>
 </div>
 </div>
+
+<script>
+    document.getElementById('openPopup').addEventListener('click', function () {
+        document.getElementById('popupOverlay').style.display = 'flex';
+    });
+
+    document.getElementById('closePopup').addEventListener('click', function () {
+        document.getElementById('popupOverlay').style.display = 'none';
+    });
+
+    document.getElementById('productForm').addEventListener('change', function () {
+        const selectedProducts = Array.from(this.querySelectorAll('input[name="productCheckbox"]:checked'));
+        const selectedProductsDisplay = selectedProducts.map(checkbox => {
+            const product_id = checkbox.value;
+            const product_title = checkbox.parentElement.textContent.trim();
+            const quantity = checkbox.parentElement.querySelector('input[name="productQuantity"]').value;
+            return product_id + "-" + product_title + " (Quantity: " + quantity + ")";
+        });
+        document.getElementById('selectedProducts').textContent = selectedProductsDisplay.join(', ');
+        // Set the selected products as a comma-separated list in the hidden input
+        document.getElementById('selectedProductsInput').value = selectedProducts.map(checkbox => checkbox.value + "-" + checkbox.parentElement.querySelector('input[name="productQuantity"]').value).join(',');
+    });
+
+</script>
 
 <!-- jquery vendor -->
 <script src="admin/js/lib/jquery.min.js"></script>

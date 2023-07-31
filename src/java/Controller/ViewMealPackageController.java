@@ -9,6 +9,7 @@ import Bird.BirdDAO;
 import Bird.BirdDTO;
 import LifeCycle.LifeCycleDAO;
 import LifeCycle.LifeCycleDTO;
+import Product.DAO;
 import Product.DTO;
 import java.io.IOException;
 import java.util.List;
@@ -34,8 +35,11 @@ public class ViewMealPackageController extends HttpServlet {
         MealDAO meal_dao = new MealDAO();
         BirdDAO bird_dao = new BirdDAO();
         LifeCycleDAO life_dao = new LifeCycleDAO();
+
+        
         MealPackageDAO package_dao = new MealPackageDAO();
 
+  
         List<MealPackageDTO> list_package = package_dao.getMealPackages();
         List<MealDTO> list_meals = meal_dao.readAllMealPackage();
         List<BirdDTO> list_birds = bird_dao.getBird();
@@ -53,11 +57,13 @@ public class ViewMealPackageController extends HttpServlet {
         start = (page - 1) * numperpage;
         end = Math.min(page * numperpage, size);
         List<MealPackageDTO> listsp = package_dao.getListByPage(list_package, start, end);
+   
 
         HttpSession session = request.getSession();
         session.setAttribute("page", page);
         session.setAttribute("num", num);
         session.setAttribute("list_package", listsp);
+ 
         request.setAttribute("list_birds", list_birds);
         request.setAttribute("list_life", list_life);
         request.setAttribute("list_meals", list_meals);

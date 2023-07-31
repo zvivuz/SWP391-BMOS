@@ -100,6 +100,24 @@ public class MealPackageDAO {
         return null;
     }
 
+    public String getLastIdMealPackage() {
+        try {
+            String sql = "select top 1 meal_package_id\n"
+                    + "from dbo.tbl_MealPackage\n"
+                    + "order by meal_package_id desc";
+            cn = (Connection) DBUtils.getConnection();
+            stm = cn.prepareStatement(sql);
+  
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                String id = rs.getString("meal_package_id");
+                return id;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public List<DTO> getProductInsideMealPackage(String package_id) {
         List<DTO> list = new ArrayList<>();
         try {
