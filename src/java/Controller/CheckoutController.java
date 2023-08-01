@@ -19,6 +19,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import meal.MealPackageDAO;
+import meal.MealPackageDTO;
 
 /**
  *
@@ -28,6 +30,7 @@ import java.util.logging.Logger;
 public class CheckoutController extends HttpServlet {
 
     private final DAO productDao = new DAO();
+    private final MealPackageDAO packageDAO = new MealPackageDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, Exception {
@@ -36,6 +39,7 @@ public class CheckoutController extends HttpServlet {
         Cart cart = null;
         Object o = session.getAttribute("cart");
         DTO product = null;
+        MealPackageDTO mealPackageDTO = null;
         if (o != null) {
             cart = (Cart) o;
         } else {
@@ -47,27 +51,55 @@ public class CheckoutController extends HttpServlet {
         if (u != null) {
             user = (UserDTO) u;
             OrderDAO ord = new OrderDAO();
-            
+
             cart.getListCartItem();
+            
             for (int i = 0; i < cart.getListCartItem().size(); i++) {
                 CartItem item = cart.getListCartItem().get(i);
-                int productId = item.getProduct().getProduct_id();
-                int quantityInCart = item.getQuantity();
-                product = new DTO();
+
+                if (item.getProduct() != null) {
+
+                    int productId = item.getProduct().getProduct_id();
+                    int quantityInCart = item.getQuantity();
+                    product = new DTO();
 // Kiểm tra số lượng sản phẩm trong database
-                product = productDao.getProductById(productId);
-                if (product.getQuantity() >= quantityInCart) 
-                       check = productDao.checkout(item.getQuantity(), item.getProduct().getProduct_id());
+                    product = productDao.getProductById(productId);
+                    if (product.getQuantity() >= quantityInCart) {
+                        check = productDao.checkout(item.getQuantity(), item.getProduct().getProduct_id());
+                    }
+
+                    if (check == true) {
+                        ord.addOrder(user, cart);
+                        session.removeAttribute("cart");
+                        session.setAttribute("size", 0);
+                        request.setAttribute("MESSAGE", "CHECKOUT SUCCESS");
+                        request.getRequestDispatcher("success.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("MESSAGE", "CHECKOUT FALSE");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
+                }
                 
-                if (check == true) {
-                    ord.addOrder(user, cart);
-                    session.removeAttribute("cart");
-                    session.setAttribute("size", 0);
-                    request.setAttribute("MESSAGE", "CHECKOUT SUCCESS");
-                    request.getRequestDispatcher("success.jsp").forward(request, response);
-                } else {
-                    request.setAttribute("MESSAGE", "CHECKOUT FALSE");
-                    request.getRequestDispatcher("error.jsp").forward(request, response);
+                if(item.getMealPackage() != null){
+                    int meal_package_id = item.getMealPackage().getMeal_package_id();
+                    int quantityInCart = item.getQuantity();
+                    mealPackageDTO = new MealPackageDTO();
+                    // Kiểm tra số lượng sản phẩm trong database
+                    mealPackageDTO = packageDAO.getMealPackageById(meal_package_id+"");
+                    if (mealPackageDTO.getQuantity() >= quantityInCart) {
+                        check = packageDAO.checkoutMealPackage(item.getQuantity(), item.getMealPackage().getMeal_package_id());
+                    }
+
+                    if (check == true) {
+                        ord.addOrder(user, cart);
+                        session.removeAttribute("cart");
+                        session.setAttribute("size", 0);
+                        request.setAttribute("MESSAGE", "CHECKOUT SUCCESS");
+                        request.getRequestDispatcher("success.jsp").forward(request, response);
+                    } else {
+                        request.setAttribute("MESSAGE", "CHECKOUT FALSE");
+                        request.getRequestDispatcher("error.jsp").forward(request, response);
+                    }
                 }
 
             }

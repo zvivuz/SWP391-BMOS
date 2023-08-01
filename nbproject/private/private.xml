@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/web/shoping-cart.jsp</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/Cart/CartItem.java</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/Controller/ViewCartController.java</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/meal/MealPackageDTO.java</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/Controller/AddToCardController.java</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/Cart/Cart.java</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/web/meal-detail.jsp</file>
+            <file>file:/C:/Personal/E-Comerce-1/BMOS_template_v4-2/src/java/Controller/AddMealPackageToCartController.java</file>
+        </group>
     </open-files>
 </project-private>

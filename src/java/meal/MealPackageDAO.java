@@ -100,6 +100,23 @@ public class MealPackageDAO {
         return null;
     }
 
+    public boolean checkoutMealPackage(int quantity, int meal_package_id) throws Exception {
+        boolean check = false;
+        try {
+            String sql;
+            sql = "update tbl_MealPackage\n"
+                    + "set quantity = quantity - ? \n"
+                    + "where meal_package_id = ?";
+            cn = (Connection) DBUtils.getConnection();
+            stm = cn.prepareStatement(sql);
+            stm.setInt(1, quantity);
+            stm.setInt(2, meal_package_id);
+            check = stm.executeUpdate() > 0 ? true : false;
+        } catch (Exception e) {
+        }
+        return check;
+    }
+
     public String getLastIdMealPackage() {
         try {
             String sql = "select top 1 meal_package_id\n"
@@ -107,7 +124,7 @@ public class MealPackageDAO {
                     + "order by meal_package_id desc";
             cn = (Connection) DBUtils.getConnection();
             stm = cn.prepareStatement(sql);
-  
+
             rs = stm.executeQuery();
             if (rs.next()) {
                 String id = rs.getString("meal_package_id");
