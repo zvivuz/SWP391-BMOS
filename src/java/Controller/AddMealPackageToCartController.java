@@ -73,9 +73,7 @@ public class AddMealPackageToCartController extends HttpServlet {
 
         String tnum = request.getParameter("num");
         String tid = request.getParameter("package_id");
-        System.out.println("nummmmmmmmmmmmmmm: " + tnum);
-        System.out.println("packageeeeeeeeeeee: " + tid);
-
+        
         HttpSession session = request.getSession();
 
         Cart cart = null;

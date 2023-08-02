@@ -35,7 +35,7 @@ public class Cart {
 
     public CartItem getItemById(int id) {
         for (CartItem i : listCartItem) {
-            if (i.getProduct().getProduct_id() == id) {
+            if (i.getProduct() != null && i.getProduct().getProduct_id() == id) {
                 return i;
             }
         }
@@ -71,7 +71,7 @@ public class Cart {
 
     public CartItem getPackageItemById(int id) {
         for (CartItem i : listCartItem) {
-            if (i.getMealPackage().getMeal_package_id() == id) {
+            if (i.getMealPackage() != null && i.getMealPackage().getMeal_package_id() == id) {
                 return i;
             }
         }
