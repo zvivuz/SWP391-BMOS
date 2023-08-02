@@ -246,32 +246,78 @@
                                     </thead>
                                     <tbody>
                                         <c:forEach items="${o.listCartItem}" var="i">
-                                            <c:set var="total" value="${total + i.product.price*i.quantity}"/>
+                                            <c:set var="total" value="${total + i.product.price*i.quantity + i.mealPackage.price*i.quantity}"/>
                                             <tr>
-                                                <td class="shoping__cart__item">
-                                                    <img style="width: 100px;" src="img/food/${i.product.thumbnail}" alt="">
-                                                    <h5>${i.product.title}</h5>
-                                                </td>
+                                                <c:if test="${i.product != null}">
+                                                    <td class="shoping__cart__item">
+                                                        <img style="width: 100px;" src="img/food/${i.product.thumbnail}" alt="">
+                                                        <h5>${i.product.title}</h5>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.mealPackage != null}">
+                                                    <td class="shoping__cart__item">
+                                                        <img style="width: 100px;" src="img/food/${i.mealPackage.thumbnail}" alt="">
+                                                        <h5>${i.mealPackage.title}</h5>
+                                                    </td>
+                                                </c:if>
                                                 <td class="shoping__cart__price">
-                                                    <fmt:formatNumber pattern="#,### VND" value="${i.product.price}"/>
+                                                    <c:if test="${i.product != null}">
+                                                        <fmt:formatNumber pattern="#,### VND" value="${i.product.price}"/>
+                                                    </c:if>
+                                                    <c:if test="${i.mealPackage != null}">
+                                                        <fmt:formatNumber pattern="#,### VND" value="${i.mealPackage.price}"/>
+                                                    </c:if>
+
                                                 </td>
-                                                <td class="shoping__cart__quantity">
-                                                    <div class="quantity">
-                                                        <div class="pro-qty-1">
-                                                            <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=-1&id=${i.product.product_id}">-</a></button>
-                                                            <input type="number" value="${i.quantity}" readonly="">
-                                                            <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=1&id=${i.product.product_id}">+</a></button>
-                                                        </div>
-                                                    </div>                                                
-                                                </td>
-                                                <td class="shoping__cart__total">
-                                                    <fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.product.price}"/>                                     
-                                                </td>
-                                                <td class="shoping__cart__item__close">
-                                                    <form action="ViewCartController" method="post">
-                                                        <button class="icon_close border-0" name="id" value="${i.product.product_id}" style="font-size: 24px; color: #b2b2b2; cursor: pointer; background-color: white">
-                                                    </form>
-                                                </td>
+                                                <c:if test="${i.product != null}">
+                                                    <td class="shoping__cart__quantity">
+                                                        <div class="quantity">
+                                                            <div class="pro-qty-1">
+                                                                <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=-1&id=${i.product.product_id}&type=product">-</a></button>
+                                                                <input type="number" value="${i.quantity}" readonly="">
+                                                                <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=1&id=${i.product.product_id}&type=product">+</a></button>
+                                                            </div>
+                                                        </div>                                                
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.mealPackage != null}">
+                                                    <td class="shoping__cart__quantity">
+                                                        <div class="quantity">
+                                                            <div class="pro-qty-1">
+                                                                <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=-1&id=${i.mealPackage.meal_package_id}&type=package">-</a></button>
+                                                                <input type="number" value="${i.quantity}" readonly="">
+                                                                <button class="inc qtybtn border-0" style="background: #f5f5f5"><a style="color: #6f6f6f; background: #f5f5f5" href="ViewCartController?num=1&id=${i.mealPackage.meal_package_id}&type=package">+</a></button>
+                                                            </div>
+                                                        </div>                                                
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.product != null}">
+                                                    <td class="shoping__cart__total">
+                                                        <fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.product.price}"/>                                     
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.mealPackage != null}">
+                                                    <td class="shoping__cart__total">
+                                                        <fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.mealPackage.price}"/>                                     
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.product != null}">
+                                                    <td class="shoping__cart__item__close">
+                                                        <form action="ViewCartController" method="post">
+                                                            <input type="hidden" name="type" value="product"/>
+                                                            <button class="icon_close border-0" name="id" value="${i.product.product_id}" style="font-size: 24px; color: #b2b2b2; cursor: pointer; background-color: white">
+                                                        </form>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${i.mealPackage != null}">
+                                                    <td class="shoping__cart__item__close">
+                                                        <form action="ViewCartController" method="post">
+                                                            <input type="hidden" name="type" value="package"/>
+                                                            <button class="icon_close border-0" name="id" value="${i.mealPackage.meal_package_id}" style="font-size: 24px; color: #b2b2b2; cursor: pointer; background-color: white">
+                                                        </form>
+                                                    </td>
+                                                </c:if>
+
                                             </tr>
                                         </c:forEach>
                                     </tbody>

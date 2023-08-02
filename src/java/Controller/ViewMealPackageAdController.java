@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Product.DAO;
+import Product.DTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +17,6 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import meal.MealPackageDAO;
 import meal.MealPackageDTO;
-
 
 @WebServlet(name = "ViewMealPackageAdController", urlPatterns = {"/ViewMealPackageAdController"})
 public class ViewMealPackageAdController extends HttpServlet {
@@ -34,27 +35,30 @@ public class ViewMealPackageAdController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
             MealPackageDAO package_dao = new MealPackageDAO();
+            DAO dao = new DAO();
 
             List<MealPackageDTO> list_package = package_dao.getMealPackages();
-             int page, numperpage = 4;
-        int size = list_package.size();
-        int num = (size % 4 == 0 ? (size / 4) : (size / 4) + 1);
-        String xpage = request.getParameter("ppage");
-        if (xpage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(xpage);
-        }
-        int start, end;
-        start = (page - 1) * numperpage;
-        end = Math.min(page * numperpage, size);
-        List<MealPackageDTO> listsp = package_dao.getListByPage(list_package, start, end);
+            int page, numperpage = 4;
+            int size = list_package.size();
+            int num = (size % 4 == 0 ? (size / 4) : (size / 4) + 1);
+            String xpage = request.getParameter("ppage");
+            if (xpage == null) {
+                page = 1;
+            } else {
+                page = Integer.parseInt(xpage);
+            }
+            int start, end;
+            start = (page - 1) * numperpage;
+            end = Math.min(page * numperpage, size);
+            List<MealPackageDTO> listsp = package_dao.getListByPage(list_package, start, end);
+            List<DTO> list = dao.getProducts();
 
-        HttpSession session = request.getSession();
-        session.setAttribute("page", page);
-        session.setAttribute("num", num);        
-        session.setAttribute("MealPackage", listsp);
-        
+            HttpSession session = request.getSession();
+            session.setAttribute("page", page);
+            session.setAttribute("num", num);
+            session.setAttribute("MealPackage", listsp);
+            session.setAttribute("list_product", list);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

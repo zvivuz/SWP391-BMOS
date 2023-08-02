@@ -99,12 +99,12 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="header__top__right">
-<!--                                <div class="header__top__right__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                                </div>-->
+                                <!--                                <div class="header__top__right__social">
+                                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                                                </div>-->
                                 <div class="header__top__right__language">
                                     <c:if test="${sessionScope.LOGIN_USER != null}">
                                         <a style="color: #1c1c1c"><i class="fa fa-user"></i>Hello, ${sessionScope.LOGIN_USER.fullname}</a>
@@ -220,81 +220,67 @@
         <!-- Breadcrumb Section End -->
 
         <!-- Checkout Section Begin -->
+        <c:set var="account" value="${sessionScope.LOGIN_USER}"/>
         <section class="checkout spad">
             <div class="container">
                 <div class="checkout__form">
                     <h4>Billing Details</h4>
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Fist Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="checkout__input">
-                                        <p>Last Name<span>*</span></p>
-                                        <input type="text">
-                                    </div>
-                                </div>
-                            </div>
                             <div class="checkout__input">
-                                <p>Country<span>*</span></p>
-                                <input type="text">
-                            </div>
+                                <p>Full Name<span>*</span></p>
+                                <input type="text" name="fullname" value="${account.fullname}" required="">
+                            </div> 
                             <div class="checkout__input">
                                 <p>Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add">
-                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
+                                <input type="text" placeholder="Apartment, suite, unite ect (optinal)" name="address" value="${account.address}" required="">
                             </div>
-                            <div class="checkout__input">
-                                <p>Town/City<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Country/State<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input">
-                                <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text">
-                            </div>
+                            <!--                            <div class="checkout__input">
+                                                            <p>Town/City<span>*</span></p>
+                                                            <input type="text" name="Town">
+                                                        </div>-->
+                            <!--                            <div class="checkout__input">
+                                                            <p>Country/State<span>*</span></p>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div class="checkout__input">
+                                                            <p>Postcode / ZIP<span>*</span></p>
+                                                            <input type="text">
+                                                        </div>-->
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" name="phone" value="${account.phone}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="text">
+                                        <input type="text" name="email" value="${account.email}">
                                     </div>
                                 </div>
                             </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="acc">
-                                    Create an account?
-                                    <input type="checkbox" id="acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <p>Create an account by entering the information below. If you are a returning customer
-                                please login at the top of the page</p>
-                            <div class="checkout__input">
-                                <p>Account Password<span>*</span></p>
-                                <input type="text">
-                            </div>
-                            <div class="checkout__input__checkbox">
-                                <label for="diff-acc">
-                                    Ship to a different address?
-                                    <input type="checkbox" id="diff-acc">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
+                            <!--                            <div class="checkout__input__checkbox">
+                                                            <label for="acc">
+                                                                Create an account?
+                                                                <input type="checkbox" id="acc">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>
+                                                        <p>Create an account by entering the information below. If you are a returning customer
+                                                            please login at the top of the page</p>
+                                                        <div class="checkout__input">
+                                                            <p>Account Password<span>*</span></p>
+                                                            <input type="text">
+                                                        </div>-->
+                            <!--                            <div class="checkout__input__checkbox">
+                                                            <label for="diff-acc">
+                                                                Ship to a different address?
+                                                                <input type="checkbox" id="diff-acc">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                        </div>-->
                             <div class="checkout__input">
                                 <p>Order notes<span>*</span></p>
                                 <input type="text"
@@ -308,9 +294,18 @@
                                 <div class="checkout__order__products">Products<span>Total</span></div>
                                 <ul>
                                     <c:forEach items="${o.listCartItem}" var="i">
-                                        <c:set var="total" value="${total + i.product.price*i.quantity}"/>
-                                        <li>${i.product.title}   x${i.quantity} <span><fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.price}"/></span></li>
-                                        </c:forEach>
+                                        <c:set var="total" value="${total + i.product.price*i.quantity + i.mealPackage.price*i.quantity}"/>
+                                        <c:if test="${i.product != null}">
+                                            <td class="shoping__cart__total">
+                                                <fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.product.price}"/>                                     
+                                            </td>
+                                        </c:if>
+                                        <c:if test="${i.mealPackage != null}">
+                                            <td class="shoping__cart__total">
+                                                <fmt:formatNumber pattern="#,### VND" value="${i.quantity*i.mealPackage.price}"/>                                     
+                                            </td>
+                                        </c:if>
+                                    </c:forEach>
                                 </ul>
                                 <div class="checkout__order__total">Total<span><fmt:formatNumber pattern="#,### VND" value="${total}"/></span></div>
                                 <div class="checkout__input__checkbox">
@@ -319,8 +314,9 @@
                                     <!--                                      <input type="radio" id="css" name="fav_language" value="CSS">
                                                                           <label for="css">PayPal</label><br>-->
                                 </div>
-                                 <div id="paypal-payment-button"></div>
-                                <form action="DispatchServlet" method="POST">                                
+                                <div id="paypal-payment-button"></div>
+                                <form action="DispatchServlet" method="POST">                           
+                                    <input type="hidden" name="type" value="product"/>
                                     <button type="submit" name="action" value="Checkout" class="site-btn">ORDER</button>
                                 </form>
 
@@ -391,6 +387,7 @@
         </style>
 
         <script src="https://www.paypal.com/sdk/js?client-id=Ab4F_6knoyZuMmVdop9bpl9hnaHYlWoBYT1TK0Dx9rHX8A1FYnchX1-zLs6HEQqsIVsdDLxLvaRA6jKF&disable-funding=credit,card"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
         <script>
                                         paypal.Buttons({
                                             style: {
@@ -408,9 +405,25 @@
                                             },
                                             onApprove: function (data, actions) {
                                                 return actions.order.capture().then(function (details) {
-                                                    console.log(details)
-                                                    window.location.replace("http://localhost:6789/BMOS_template_v4/success.jsp")
-                                                })
+                                                    console.log(details);
+                                              
+                                                    // Make an HTTP POST request to the Servlet endpoint using Axios
+                                                    axios.post('CheckoutController', {
+                                                        headers: {
+                                                            'Content-Type': 'text/plain'
+                                                        }
+                                                    })
+                                                            .then(function (response) {
+                                                                // Success: Handle the response from the Servlet if needed
+                                                                console.log('Data sent successfully');
+                                                                window.location.replace("http://localhost:8080/BMOS_template_v4-2.1/success.jsp");
+                                                            })
+                                                            .catch(function (error) {
+                                                                // Error: Handle the error if needed
+                                                                console.error('Error sending data to the Servlet', error);
+                                                                window.location.replace("http://localhost:8080/BMOS_template_v4-2.1/error.jsp");
+                                                            });
+                                                });
                                             },
                                             onCancel: function (data) {
                                                 window.location.replace("http://localhost:6789/BMOS_template_v4/oncancel.html")

@@ -1,6 +1,7 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package Controller;
 
@@ -17,13 +18,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import meal.Meal;
+import meal.MealPackageDAO;
+import meal.MealPackageDTO;
 
 /**
  *
- * @author Asus
+ * @author ptd
  */
-@WebServlet(name = "AddToCardController", urlPatterns = {"/AddToCardController"})
-public class AddToCardController extends HttpServlet {
+@WebServlet(name = "AddMealPackageToCartController", urlPatterns = {"/AddMealPackageToCartController"})
+public class AddMealPackageToCartController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,7 +41,7 @@ public class AddToCardController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,27 +70,33 @@ public class AddToCardController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
+
+        String tnum = request.getParameter("num");
+        String tid = request.getParameter("package_id");
+        System.out.println("nummmmmmmmmmmmmmm: " + tnum);
+        System.out.println("packageeeeeeeeeeee: " + tid);
+
+        HttpSession session = request.getSession();
+
         Cart cart = null;
         Object o = session.getAttribute("cart");
-        
-        if(o!=null){
-            cart = (Cart)o;
-        }else{
+
+        if (o != null) {
+            cart = (Cart) o;
+        } else {
             cart = new Cart();
         }
-        String tnum = request.getParameter("num");
-        String tid = request.getParameter("product_id");
-        int num, id;
+
+        int num;
         try {
             num = Integer.parseInt(tnum);
-            id = Integer.parseInt(tid);
-            
-            DAO dao = new DAO();
-            DTO p = dao.getProductById(id);
-            double price = p.getPrice();
-            CartItem t = new CartItem(p, num, price);
-            cart.addItem(t);
+//            id = Integer.parseInt(tid);
+
+            MealPackageDAO dao = new MealPackageDAO();
+            MealPackageDTO dto = dao.getMealPackageById(tid);
+            double price = dto.getPrice();
+            CartItem t = new CartItem(dto, num, price);
+            cart.addPackageItem(t);
         } catch (NumberFormatException e) {
             num = 1;
         }
@@ -94,7 +104,7 @@ public class AddToCardController extends HttpServlet {
         List<CartItem> list = cart.getListCartItem();
         session.setAttribute("cart", cart);
         session.setAttribute("size", list.size());
-        request.getRequestDispatcher("DetailProductController?product_id=" + tid).forward(request, response);
+        request.getRequestDispatcher("DetailMealPackageController?package_id=" + tid).forward(request, response);
     }
 
     /**

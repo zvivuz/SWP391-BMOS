@@ -110,12 +110,12 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="header__top__right">
-<!--                                <div class="header__top__right__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                                </div>-->
+                                <!--                                <div class="header__top__right__social">
+                                                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                                                    <a href="#"><i class="fa fa-linkedin"></i></a>
+                                                                    <a href="#"><i class="fa fa-pinterest-p"></i></a>
+                                                                </div>-->
                                 <div class="header__top__right__language">
                                     <c:if test="${sessionScope.LOGIN_USER != null}">
                                         <a style="color: #1c1c1c"><i class="fa fa-user"></i>Hello, ${sessionScope.LOGIN_USER.fullname}</a>
@@ -249,20 +249,32 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="product__details__text">
                             <h3>${package_detail.title}</h3>
-                            <ul style="padding-top: 0; margin-top: 0">
-                                <h5 style="font-weight: bold; color: red;">You can click on these products to view them and add them to your cart:</h5>
-                            </ul>
-                            <script>
-                                function applyClickedClass(element) {
-                                    element.classList.add("clicked");
-                                }
-                            </script>
+                            <!--                            <ul style="padding-top: 0; margin-top: 0">
+                                                            <h5 style="font-weight: bold; color: red;">You can click on these products to view them and add them to your cart:</h5>
+                                                        </ul>-->
+                            <!--                            <script>
+                                                            function applyClickedClass(element) {
+                                                                element.classList.add("clicked");
+                                                            }
+                                                        </script>-->
                             <c:forEach items="${requestScope.list_product_inside}" var="s">
 
                                 <h4><li><a style="color: #1c1c1c" href="search?searchProduct=${s.title}" onclick="applyClickedClass(this)">${s.title}</a></li></h4>
-                                </c:forEach>
+                                    </c:forEach>
                             </ul>
-
+                            <lable style="font-size: 2rem">Price:</lable>
+                            <span style="color: red; font-size: 2rem">${package_detail.price} đ</span>
+                            <form action="AddMealPackageToCartController" method="POST">
+                                 <input type="hidden" name="package_id" value="${package_detail.meal_package_id}">
+                                <div class="product__details__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" name="num" value="1">                                      
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="primary-btn border-white">ADD TO CART</button>
+                            </form>
 
                             <!--                            <div class="product__details__rating">
                                                             <i class="fa fa-star"></i>
@@ -334,80 +346,80 @@
         <!-- Product Details Section End -->
 
         <!-- Related Product Section Begin -->
-<!--        <section class="related-product">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title related__product__title">
-                            <h2>All Packages</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <c:forEach items="${list_package}" var="o">
-                        <div class="col-lg-3 col-md-4 col-sm-6">
-                            <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="${o.thumbnail}">
-                                    <ul class="product__item__pic__hover">
-                                        <li><a href="https://www.google.com/search?q=${o.title} for bird"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                    </ul>
-                                </div>
-                                <div class="product__item__text">
-                                    <h6><a href="DetailMealPackageController?package_id=${o.meal_package_id }">${o.title}</a></h6>
-                                    <h5>${o.getFormattedPrice()} VND</h5
+        <!--        <section class="related-product">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section-title related__product__title">
+                                    <h2>All Packages</h2>
                                 </div>
                             </div>
                         </div>
-                                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                                <div class="product__item">
-                                                    <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
-                                                        <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="product__item__text">
-                                                        <h6><a href="#">Crab Pool Security</a></h6>
-                                                        <h5>$30.00</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                                <div class="product__item">
-                                                    <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
-                                                        <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="product__item__text">
-                                                        <h6><a href="#">Crab Pool Security</a></h6>
-                                                        <h5>$30.00</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-4 col-sm-6">
-                                                <div class="product__item">
-                                                    <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
-                                                        <ul class="product__item__pic__hover">
-                                                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="product__item__text">
-                                                        <h6><a href="#">Crab Pool Security</a></h6>
-                                                        <h5>$30.00</h5>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <div class="row">
+        <c:forEach items="${list_package}" var="o">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="${o.thumbnail}">
+                        <ul class="product__item__pic__hover">
+                            <li><a href="https://www.google.com/search?q=${o.title} for bird"><i class="fa fa-retweet"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
                     </div>
-                </c:forEach>
+                    <div class="product__item__text">
+                        <h6><a href="DetailMealPackageController?package_id=${o.meal_package_id }">${o.title}</a></h6>
+                        <h5>${o.getFormattedPrice()} VND</h5
+                    </div>
+                </div>
             </div>
-        </section>-->
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6><a href="#">Crab Pool Security</a></h6>
+                                            <h5>$30.00</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/product/product-3.jpg">
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6><a href="#">Crab Pool Security</a></h6>
+                                            <h5>$30.00</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-6">
+                                    <div class="product__item">
+                                        <div class="product__item__pic set-bg" data-setbg="img/product/product-7.jpg">
+                                            <ul class="product__item__pic__hover">
+                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="product__item__text">
+                                            <h6><a href="#">Crab Pool Security</a></h6>
+                                            <h5>$30.00</h5>
+                                        </div>
+                                    </div>
+                                </div>
+        </div>
+        </c:forEach>
+    </div>
+</section>-->
         <!-- Related Product Section End -->
 
         <!-- Footer Section Begin -->

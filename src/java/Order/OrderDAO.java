@@ -25,7 +25,7 @@ import java.util.List;
 public class OrderDAO {
 
     private static final String SHOW = "select * from tbl_Order";
-     private static final String SHOW2 = "select * from tbl_Order";
+    private static final String SHOW2 = "select * from tbl_Order";
     private static final String UPDATE = "UPDATE tbl_Order SET status='true' WHERE order_id=?";
     Connection cn = null;
     ResultSet rs = null;
@@ -51,13 +51,25 @@ public class OrderDAO {
             if (rs.next()) {
                 int oid = rs.getInt(1);
                 for (CartItem i : cart.getListCartItem()) {
-                    String sql2 = "insert into tbl_OrderDetail([oder_id],[product_id],[quantity],[price]) values (?,?,?,?)";
-                    stm = cn.prepareStatement(sql2);
-                    stm.setInt(1, oid);
-                    stm.setInt(2, i.getProduct().getProduct_id());
-                    stm.setInt(3, i.getQuantity());
-                    stm.setDouble(4, i.getPrice());
-                    stm.executeUpdate();
+                    if (i.getProduct() != null) {
+                        String sql2 = "insert into tbl_OrderDetail([oder_id],[product_id],[quantity],[price]) values (?,?,?,?)";
+                        stm = cn.prepareStatement(sql2);
+                        stm.setInt(1, oid);
+                        stm.setInt(2, i.getProduct().getProduct_id());
+                        stm.setInt(3, i.getQuantity());
+                        stm.setDouble(4, i.getPrice());
+                        stm.executeUpdate();
+                    }
+                    if (i.getMealPackage()!= null) {
+                        String sql2 = "insert into tbl_OrderDetail([oder_id],[product_id],[quantity],[price]) values (?,?,?,?)";
+                        stm = cn.prepareStatement(sql2);
+                        stm.setInt(1, oid);
+                        stm.setInt(2, i.getMealPackage().getMeal_package_id());
+                        stm.setInt(3, i.getQuantity());
+                        stm.setDouble(4, i.getPrice());
+                        stm.executeUpdate();
+                    }
+
                 }
             }
         } catch (Exception e) {
@@ -186,7 +198,8 @@ public class OrderDAO {
         }
         return checkUpdate;
     }
-        public List<OrderDetail> getOrderDetailById(String id) {
+
+    public List<OrderDetail> getOrderDetailById(String id) {
         List<OrderDetail> list = new ArrayList<>();
         try {
             cn = DBUtils.getConnection();
@@ -211,7 +224,8 @@ public class OrderDAO {
         }
         return list;
     }
- public List<OrderDTO> getListOrderAD() throws SQLException {
+
+    public List<OrderDTO> getListOrderAD() throws SQLException {
         List<OrderDTO> listOrder = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;

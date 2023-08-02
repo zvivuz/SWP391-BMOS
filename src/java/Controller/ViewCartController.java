@@ -17,7 +17,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-
+import meal.MealPackageDAO;
+import meal.MealPackageDTO;
 
 @WebServlet(name = "ViewCartController", urlPatterns = {"/ViewCartController"})
 
@@ -60,20 +61,34 @@ public class ViewCartController extends HttpServlet {
         }
         String tnum = request.getParameter("num").trim();
         String tid = request.getParameter("id");
+        String type = request.getParameter("type");
         int num, id;
         try {
             num = Integer.parseInt(tnum);
             id = Integer.parseInt(tid);
-            
-            if((num==-1) && (cart.getQuantityById(id)<=1)){
-                cart.removeItem(id);
-            }else{            
-            DAO dao = new DAO();
-            DTO p = dao.getProductById(id);            
-            double price = p.getPrice();
-            CartItem t = new CartItem(p, num, price);
-            cart.addItem(t);
+
+            if ("product".equals(type)) {
+                if ((num == -1) && (cart.getQuantityById(id) <= 1)) {
+                    cart.removeItem(id);
+                } else {
+                    DAO dao = new DAO();
+                    DTO p = dao.getProductById(id);
+                    double price = p.getPrice();
+                    CartItem t = new CartItem(p, num, price);
+                    cart.addItem(t);
+                }
+            }else if("package".equals(type)){
+                if ((num == -1) && (cart.getQuantityByPackageId(id) <= 1)) {
+                    cart.removePackageItem(id);
+                } else {
+                    MealPackageDAO dao = new MealPackageDAO();
+                    MealPackageDTO p = dao.getMealPackageById(tid);
+                    double price = p.getPrice();
+                    CartItem t = new CartItem(p, num, price);
+                    cart.addPackageItem(t);
+                }
             }
+
         } catch (NumberFormatException e) {
             System.out.println(e);
         }
@@ -104,7 +119,13 @@ public class ViewCartController extends HttpServlet {
             cart = new Cart();
         }
         int id = Integer.parseInt(request.getParameter("id"));
-        cart.removeItem(id);
+        String type = request.getParameter("type");
+        if("product".equals(type)){
+            cart.removeItem(id);
+        }else if("package".equals(type)){
+            cart.removePackageItem(id);
+        }
+        
 
         List<CartItem> list = cart.getListCartItem();
         session.setAttribute("cart", cart);
